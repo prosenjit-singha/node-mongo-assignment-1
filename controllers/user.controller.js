@@ -26,7 +26,7 @@ module.exports.getTheAllUsers = async (req, res, next) => {
   const { limit } = req.query;
 
   try {
-    await fs.readFile("data/users.json", (err, data) => {
+    await fs.readFile(usersPath, (err, data) => {
       if (err) {
         res.sendStatus(500);
         res.end();
@@ -161,10 +161,4 @@ module.exports.deleteAnUser = (req, res) => {
       message: `${userId} not found!`,
     });
   }
-};
-
-module.exports.test = (req, res) => {
-  const users = JSON.parse(fs.readFileSync(usersPath));
-  // console.log(usersPath);
-  res.json(users);
 };
