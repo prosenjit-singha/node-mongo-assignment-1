@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "name": "Prince Charly",
+    "name": "Prince Hridoy",
     "gender": "male",
     "contact": "012XXXXXXX",
     "address": "New Work",
@@ -12,15 +12,15 @@
     "name": "Queen Bee",
     "gender": "female",
     "contact": "013XXXXXXX",
-    "address": "New Work",
+    "address": "Bangladesh",
     "photoUrl": "www.photo-url.com/url"
   },
   {
     "id": 3,
-    "name": "Prosenjit Singha",
+    "name": "Aheibam Prosenjit",
     "gender": "male",
     "contact": "0176394338X",
-    "address": "Juri, Moulvibazar",
+    "address": "Chhoto Dhamai, Juri, Moulvibazar",
     "photoUrl": "www.photo-url.com/pj"
   }
 ]

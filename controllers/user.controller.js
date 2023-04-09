@@ -48,10 +48,17 @@ module.exports.createAnUser = (req, res) => {
 
   fs.writeFileSync(usersPath, JSON.stringify(users, null, 2));
 
-  res.json({
-    success: true,
-    status: 200,
-  });
+  if (updatedUsers.length > users.length) {
+    res.json({
+      success: true,
+      status: 200,
+    });
+  } else {
+    res.json({
+      success: false,
+      status: 400,
+    });
+  }
 };
 
 module.exports.updateAnUser = (req, res) => {
@@ -60,16 +67,18 @@ module.exports.updateAnUser = (req, res) => {
   const users = JSON.parse(fs.readFileSync(usersPath));
 
   let updatedUsers = [];
+  let updated = false;
   for (const user of users) {
     if (userId === user.id) {
       updatedUsers.push({ ...user, ...payload });
+      updated = true;
     } else {
       updatedUsers.push(user);
     }
   }
   fs.writeFileSync(usersPath, JSON.stringify(updatedUsers, null, 2));
 
-  if (updatedUsers.length > users.length) {
+  if (updated) {
     res.json({
       status: 200,
       success: true,
@@ -82,7 +91,42 @@ module.exports.updateAnUser = (req, res) => {
   }
 };
 
-module.exports.updateMultipleUsers = () => {};
+module.exports.updateMultipleUsers = (req, res) => {
+  let payload = req.body; // array of objects
+  const users = JSON.parse(fs.readFileSync(usersPath));
+
+  let updatedUsers = [];
+  let updatedIds = []; // updated ids
+
+  for (const user of users) {
+    let updated = false;
+
+    for (const userNewInfo of payload) {
+      if (userNewInfo.id === user.id) {
+        updatedUsers.push({ ...user, ...userNewInfo });
+        updatedIds.push(userNewInfo.id);
+        updated = true;
+        break;
+      }
+    }
+    if (!updated) updatedUsers.push(user);
+  }
+
+  fs.writeFileSync(usersPath, JSON.stringify(updatedUsers, null, 2));
+
+  if (updatedIds.length) {
+    res.json({
+      status: 200,
+      success: true,
+      updatedIds,
+    });
+  } else {
+    res.status(400).json({
+      status: 400,
+      success: false,
+    });
+  }
+};
 
 module.exports.deleteAnUser = (req, res) => {
   const userId = req.body.id;
