@@ -3,14 +3,16 @@ const router = express.Router();
 const controller = require("../controllers/user.controller");
 const middleware = require("../middlewares/user.middleware");
 
-router.get("/user/random", controller.getARandomUser);
+router.get("/random", controller.getARandomUser);
 
-router.get("/user/all", controller.getTheAllUsers);
+router.get("/all", controller.getTheAllUsers);
 
-router.put("/user/save", middleware.validateObj, controller.createAnUser);
+router.put("/save", middleware.validateObj, controller.createAnUser);
 
-router.patch("/user/update", controller.updateAnUser);
+router.patch("/update", controller.updateAnUser);
 
-router.patch("/user/bulk-update", controller.updateMultipleUsers);
+router.patch("/bulk-update", controller.updateMultipleUsers);
 
-router.delete("/user/delete", controller.deleteAnUser);
+router.delete("/delete", controller.deleteAnUser);
+
+module.exports = router;
