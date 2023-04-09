@@ -9,6 +9,7 @@ app.use(express.json());
 
 app.use("/api/user", userRoute);
 
+app.all("*", (req, res) => res.send("Page Not Found"));
 // default error handler
 app.use((err, _req, res, next) => {
   // console.log(err);
