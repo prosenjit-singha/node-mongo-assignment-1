@@ -7,6 +7,8 @@ router.get("/random", controller.getARandomUser);
 
 router.get("/all", controller.getTheAllUsers);
 
+router.get("/test", controller.test);
+
 router.post(
   "/save",
   userMiddleware.validateUserType,

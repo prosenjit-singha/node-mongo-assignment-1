@@ -1,8 +1,7 @@
-// const users = require("../data/users.json");
-const usersPath = "data/users.json";
+// const us = require("../data/users.json");
+const usersPath = __dirname + "/../data/users.json";
 const fs = require("fs");
 const arr = require("../utils/array");
-const errors = require("../helpers/errors");
 
 module.exports.getARandomUser = async (_req, res) => {
   try {
@@ -162,4 +161,10 @@ module.exports.deleteAnUser = (req, res) => {
       message: `${userId} not found!`,
     });
   }
+};
+
+module.exports.test = (req, res) => {
+  const users = JSON.parse(fs.readFileSync(usersPath));
+  console.log(usersPath);
+  res.json(users);
 };
