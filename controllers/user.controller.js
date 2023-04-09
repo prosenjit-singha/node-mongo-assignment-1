@@ -33,7 +33,7 @@ module.exports.getTheAllUsers = async (req, res, next) => {
         res.end();
       } else {
         const range = parseInt(limit);
-        if (isNaN(range)) {
+        if (limit && isNaN(range)) {
           next({
             status: 400,
             success: false,
