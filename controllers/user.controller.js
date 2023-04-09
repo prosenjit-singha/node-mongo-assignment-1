@@ -165,6 +165,6 @@ module.exports.deleteAnUser = (req, res) => {
 
 module.exports.test = (req, res) => {
   const users = JSON.parse(fs.readFileSync(usersPath));
-  console.log(usersPath);
+  // console.log(usersPath);
   res.json(users);
 };
