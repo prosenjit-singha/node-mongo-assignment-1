@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "name": "Prince Charly",
+    "gender": "male",
+    "contact": "012XXXXXXX",
+    "address": "New Work",
+    "photoUrl": "www.photo-url.com/url"
+  },
+  {
+    "id": 2,
+    "name": "Queen Bee",
+    "gender": "female",
+    "contact": "013XXXXXXX",
+    "address": "New Work",
+    "photoUrl": "www.photo-url.com/url"
+  }
+]
