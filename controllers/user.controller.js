@@ -2,6 +2,7 @@
 const usersPath = "data/users.json";
 const fs = require("fs");
 const arr = require("../utils/array");
+const errors = require("../helpers/errors");
 
 module.exports.getARandomUser = async (_req, res) => {
   try {
@@ -53,8 +54,59 @@ module.exports.createAnUser = (req, res) => {
   });
 };
 
-module.exports.updateAnUser = () => {};
+module.exports.updateAnUser = (req, res) => {
+  const payload = req.body;
+  const userId = payload.id;
+  const users = JSON.parse(fs.readFileSync(usersPath));
+
+  let updatedUsers = [];
+  for (const user of users) {
+    if (userId === user.id) {
+      updatedUsers.push({ ...user, ...payload });
+    } else {
+      updatedUsers.push(user);
+    }
+  }
+  fs.writeFileSync(usersPath, updatedUsers);
+
+  if (updatedUsers.length > users.length) {
+    res.json({
+      status: 200,
+      success: true,
+    });
+  } else {
+    res.status(400).json({
+      status: 400,
+      success: false,
+    });
+  }
+};
 
 module.exports.updateMultipleUsers = () => {};
 
-module.exports.deleteAnUser = () => {};
+module.exports.deleteAnUser = (req, res) => {
+  const userId = req.body.id;
+  const users = JSON.parse(fs.readFileSync(usersPath));
+
+  let updatedUsers = [];
+  for (const user of users) {
+    if (userId === user.id) {
+      continue;
+    } else {
+      updatedUsers.push(user);
+    }
+  }
+  fs.writeFileSync(usersPath, updatedUsers);
+
+  if (updatedUsers.length < users.length) {
+    res.json({
+      status: 200,
+      success: true,
+    });
+  } else {
+    res.status(400).json({
+      status: 400,
+      success: false,
+    });
+  }
+};
