@@ -9,7 +9,7 @@ router.get("/all", controller.getTheAllUsers);
 
 router.post("/save", middleware.validateObj, controller.createAnUser);
 
-router.patch("/update", controller.updateAnUser);
+router.patch("/update", middleware.validateId, controller.updateAnUser);
 
 router.patch("/bulk-update", controller.updateMultipleUsers);
 

@@ -104,7 +104,7 @@ module.exports.updateMultipleUsers = (req, res) => {
     for (const userNewInfo of payload) {
       if (userNewInfo.id === user.id) {
         updatedUsers.push({ ...user, ...userNewInfo });
-        updatedIds.push(userNewInfo.id);
+        updatedIds.push(user.id);
         updated = true;
         break;
       }
