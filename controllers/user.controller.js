@@ -3,9 +3,20 @@ const fs = require("fs");
 
 module.exports.getARandomUser = () => {};
 
-module.exports.getTheAllUsers = (_req, res) => {
-  const users = JSON.parse(fs.readFileSync("data/users.json"));
-  res.json(users);
+module.exports.getTheAllUsers = async (_req, res) => {
+  try {
+    await fs.readFile("data/users.json", (err, data) => {
+      if (err) {
+        res.sendStatus(500);
+        res.end();
+      } else {
+        res.json(JSON.parse(data));
+        res.end();
+      }
+    });
+  } catch (error) {
+    res.sendStatus(500);
+  }
 };
 
 module.exports.createAnUser = () => {};
