@@ -1,7 +1,9 @@
 // const us = require("../data/users.json");
-const usersPath = __dirname + "/../data/users.json";
 const fs = require("fs");
+const path = require("path");
 const arr = require("../utils/array");
+
+const usersPath = path.join(process.cwd(), "/data/users.json");
 
 module.exports.getARandomUser = async (_req, res) => {
   try {
