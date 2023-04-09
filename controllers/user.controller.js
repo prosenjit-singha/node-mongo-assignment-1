@@ -67,7 +67,7 @@ module.exports.updateAnUser = (req, res) => {
       updatedUsers.push(user);
     }
   }
-  fs.writeFileSync(usersPath, updatedUsers);
+  fs.writeFileSync(usersPath, JSON.stringify(updatedUsers, null, 2));
 
   if (updatedUsers.length > users.length) {
     res.json({
@@ -96,7 +96,7 @@ module.exports.deleteAnUser = (req, res) => {
       updatedUsers.push(user);
     }
   }
-  fs.writeFileSync(usersPath, updatedUsers);
+  fs.writeFileSync(usersPath, JSON.stringify(updatedUsers, null, 2));
 
   if (updatedUsers.length < users.length) {
     res.json({

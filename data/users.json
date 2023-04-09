@@ -17,10 +17,10 @@
   },
   {
     "id": 3,
-    "gender": "male",
     "name": "Prosenjit Singha",
+    "gender": "male",
     "contact": "0176394338X",
     "address": "Juri, Moulvibazar",
-    "photoURL": "www.photo-url.com/pj"
+    "photoUrl": "www.photo-url.com/pj"
   }
 ]
