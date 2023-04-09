@@ -7,7 +7,7 @@ router.get("/random", controller.getARandomUser);
 
 router.get("/all", controller.getTheAllUsers);
 
-router.put("/save", middleware.validateObj, controller.createAnUser);
+router.post("/save", middleware.validateObj, controller.createAnUser);
 
 router.patch("/update", controller.updateAnUser);
 

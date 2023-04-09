@@ -38,7 +38,20 @@ module.exports.getTheAllUsers = async (_req, res) => {
   }
 };
 
-module.exports.createAnUser = () => {};
+module.exports.createAnUser = (req, res) => {
+  const payload = req.body;
+
+  const users = JSON.parse(fs.readFileSync(usersPath));
+
+  users.push(payload);
+
+  fs.writeFileSync(usersPath, JSON.stringify(users, null, 2));
+
+  res.json({
+    success: true,
+    status: 200,
+  });
+};
 
 module.exports.updateAnUser = () => {};
 
