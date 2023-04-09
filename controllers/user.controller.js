@@ -48,17 +48,10 @@ module.exports.createAnUser = (req, res) => {
 
   fs.writeFileSync(usersPath, JSON.stringify(users, null, 2));
 
-  if (updatedUsers.length > users.length) {
-    res.json({
-      success: true,
-      status: 200,
-    });
-  } else {
-    res.json({
-      success: false,
-      status: 400,
-    });
-  }
+  res.json({
+    success: true,
+    status: 200,
+  });
 };
 
 module.exports.updateAnUser = (req, res) => {
@@ -84,9 +77,10 @@ module.exports.updateAnUser = (req, res) => {
       success: true,
     });
   } else {
-    res.status(400).json({
-      status: 400,
+    res.status(406).json({
+      status: 406,
       success: false,
+      message: `${userId} not found!`,
     });
   }
 };
@@ -114,18 +108,11 @@ module.exports.updateMultipleUsers = (req, res) => {
 
   fs.writeFileSync(usersPath, JSON.stringify(updatedUsers, null, 2));
 
-  if (updatedIds.length) {
-    res.json({
-      status: 200,
-      success: true,
-      updatedIds,
-    });
-  } else {
-    res.status(400).json({
-      status: 400,
-      success: false,
-    });
-  }
+  res.json({
+    status: 200,
+    success: true,
+    updatedIds,
+  });
 };
 
 module.exports.deleteAnUser = (req, res) => {
@@ -148,9 +135,10 @@ module.exports.deleteAnUser = (req, res) => {
       success: true,
     });
   } else {
-    res.status(400).json({
-      status: 400,
+    res.status(406).json({
+      status: 406,
       success: false,
+      message: `${userId} not found!`,
     });
   }
 };
