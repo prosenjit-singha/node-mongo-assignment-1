@@ -23,15 +23,26 @@ module.exports.getARandomUser = async (_req, res) => {
   }
 };
 
-module.exports.getTheAllUsers = async (_req, res) => {
+module.exports.getTheAllUsers = async (req, res, next) => {
+  const { limit } = req.query;
+
   try {
     await fs.readFile("data/users.json", (err, data) => {
       if (err) {
         res.sendStatus(500);
         res.end();
       } else {
-        res.json(JSON.parse(data));
-        res.end();
+        const range = parseInt(limit);
+        if (isNaN(range)) {
+          next({
+            status: 400,
+            success: false,
+            message: "limit must be a number",
+          });
+        } else {
+          res.json(JSON.parse(data).slice(0, limit));
+          res.end();
+        }
       }
     });
   } catch (error) {
@@ -39,19 +50,29 @@ module.exports.getTheAllUsers = async (_req, res) => {
   }
 };
 
-module.exports.createAnUser = (req, res) => {
+module.exports.createAnUser = (req, res, next) => {
   const payload = req.body;
 
   const users = JSON.parse(fs.readFileSync(usersPath));
 
-  users.push(payload);
+  const isExist = users.find((user) => user.id === payload.id);
 
-  fs.writeFileSync(usersPath, JSON.stringify(users, null, 2));
+  if (!!isExist) {
+    next({
+      status: 406,
+      success: false,
+      message: "user id already exist",
+    });
+  } else {
+    users.push(payload);
 
-  res.json({
-    success: true,
-    status: 200,
-  });
+    fs.writeFileSync(usersPath, JSON.stringify(users, null, 2));
+
+    res.json({
+      success: true,
+      status: 200,
+    });
+  }
 };
 
 module.exports.updateAnUser = (req, res) => {

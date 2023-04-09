@@ -11,7 +11,6 @@ app.use("/api/user", userRoute);
 
 // default error handler
 app.use((err, _req, res, next) => {
-  console.log({ err });
   if (res.headersSent) {
     return next(err);
   }
