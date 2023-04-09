@@ -20,7 +20,11 @@ router.patch(
   controller.updateAnUser
 );
 
-router.patch("/bulk-update", controller.updateMultipleUsers);
+router.patch(
+  "/bulk-update",
+  userMiddleware.validateMultipleUsersUpdate,
+  controller.updateMultipleUsers
+);
 
 router.delete(
   "/delete",

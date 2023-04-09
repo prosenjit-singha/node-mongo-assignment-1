@@ -1,10 +1,9 @@
 const requiredKeys = ["id", "name", "gender", "contact", "address", "photoUrl"];
 // validate the body and check if all the required properties are present in the body
-module.exports.validateUserType = (req, res, next) => {
-  const body = req.body;
 
-  for (const key in body) {
-    if (key === "id" && typeof body[key] !== "number") {
+function checkTypeAndKeys(data, next) {
+  for (const key in data) {
+    if (key === "id" && typeof data[key] !== "number") {
       next({
         status: 400,
         success: false,
@@ -17,7 +16,7 @@ module.exports.validateUserType = (req, res, next) => {
       key === "address" ||
       key === "photoUrl"
     ) {
-      if (typeof body[key] !== "string") {
+      if (typeof data[key] !== "string") {
         next({
           status: 400,
           success: false,
@@ -35,11 +34,17 @@ module.exports.validateUserType = (req, res, next) => {
       }
     }
   }
+}
+
+module.exports.validateUserType = (req, _res, next) => {
+  const body = req.body;
+
+  checkTypeAndKeys(body, next);
 
   next();
 };
 
-module.exports.validateObjectKeys = (req, res, next) => {
+module.exports.validateObjectKeys = (req, _res, next) => {
   const body = req.body;
 
   requiredKeys.forEach((key) => {
@@ -51,5 +56,11 @@ module.exports.validateObjectKeys = (req, res, next) => {
       });
     }
   });
+  next();
+};
+
+module.exports.validateMultipleUsersUpdate = (req, _res, next) => {
+  const users = req.body;
+  users.forEach((user) => checkTypeAndKeys(user, next));
   next();
 };
