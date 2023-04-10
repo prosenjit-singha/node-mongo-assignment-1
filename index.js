@@ -8,7 +8,7 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-app.use("/api/user", userRoute);
+app.use("/user", userRoute);
 
 app.all("*", (req, res) => res.send("Page Not Found"));
 
