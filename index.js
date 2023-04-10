@@ -15,10 +15,15 @@ app.all("*", (req, res) => res.send("Page Not Found"));
 // default error handler
 app.use((err, _req, res, next) => {
   // console.log(err);
-  if (res.headersSent) {
+  if (err.code === "EROFS") {
+    res.status(500).json({
+      ...err,
+      message: "read-write operation not-allowed on vercel files",
+      usefulLink: "https://github.com/vercel/next.js/discussions/46021",
+    });
+  } else if (res.headersSent) {
     return next(err);
-  }
-  res.status(err.status || 500).json(err);
+  } else res.status(err.status || 500).json(err);
 });
 
 app.listen(port, () => console.log("Server is running on port -", port));

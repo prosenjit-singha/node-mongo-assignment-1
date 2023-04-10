@@ -30,19 +30,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{baseURL}}/user/all?limit=3",
+					"raw": "{{baseURL}}/user/all",
 					"host": [
 						"{{baseURL}}"
 					],
 					"path": [
 						"user",
 						"all"
-					],
-					"query": [
-						{
-							"key": "limit",
-							"value": "3"
-						}
 					]
 				}
 			},
@@ -55,7 +49,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"id\": 6,\r\n    \"name\": \"Rashel Ahmed\",\r\n    \"gender\": \"male\",\r\n    \"contact\": \"0176394338X\",\r\n    \"address\": \"Juri, Moulvibazar\",\r\n    \"photoUrl\": \"www.photo-url.com/pj\"\r\n}",
+					"raw": "{\r\n    \"id\": 7,\r\n    \"name\": \"Rashel Ahmed\",\r\n    \"gender\": \"male\",\r\n    \"contact\": \"0176394338X\",\r\n    \"address\": \"Juri, Moulvibazar\",\r\n    \"photoUrl\": \"www.photo-url.com/pj\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -179,6 +173,16 @@
 		}
 	],
 	"variable": [
+		{
+			"key": "localURL",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "vercelURL",
+			"value": "",
+			"type": "string"
+		},
 		{
 			"key": "baseURL",
 			"value": "",

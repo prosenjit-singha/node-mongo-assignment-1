@@ -3,7 +3,7 @@ const fs = require("fs");
 const path = require("path");
 const arr = require("../utils/array");
 
-const usersPath = path.join(process.cwd(), "/data/users.json");
+const usersPath = path.join(process.cwd(), "/tmp/users.json");
 
 module.exports.getARandomUser = async (_req, res) => {
   try {
@@ -66,12 +66,16 @@ module.exports.createAnUser = (req, res, next) => {
     });
   } else {
     users.push(payload);
-
-    fs.writeFileSync(usersPath, JSON.stringify(users, null, 2));
-
-    res.json({
-      success: true,
-      status: 200,
+    fs.chmod(usersPath, 0o600, () => {
+      try {
+        fs.writeFileSync(usersPath, JSON.stringify(users, null, 2));
+        res.json({
+          success: true,
+          status: 200,
+        });
+      } catch (err) {
+        next(err);
+      }
     });
   }
 };
@@ -163,4 +167,8 @@ module.exports.deleteAnUser = (req, res) => {
       message: `${userId} not found!`,
     });
   }
+};
+
+module.exports.test = (req, res) => {
+  fs.chmod;
 };
